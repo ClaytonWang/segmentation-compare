@@ -5,8 +5,8 @@ $(function () {
         var name = $(this).attr('name');
         var val = $(this).val();
         objScore[name] = val;
-        if(Object.getOwnPropertyNames(objScore).length === len){
-            $('#submit_svy').attr('disabled',false);
+        if (Object.getOwnPropertyNames(objScore).length === len) {
+            $('#submit_svy').attr('disabled', false);
         }
     });
 
@@ -21,9 +21,9 @@ $(function () {
             commtens = commtens.substring(0, commtens.length - 3);
         }
 
-        var arrScore=[];
-        for(var prop in objScore){
-            if(objScore.hasOwnProperty(prop)){
+        var arrScore = [];
+        for (var prop in objScore) {
+            if (objScore.hasOwnProperty(prop)) {
                 arrScore.push(objScore[prop]);
             }
         }
@@ -40,11 +40,26 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 if (data['result'] === 'Success') {
-                    document.location ='/survey/survey_completed_succ';
+                    document.location = '/survey/survey_completed_succ';
                 } else {
                     alert("Error!");
                 }
             }
         });
     });
+    var query =$('#Query');
+    var w = query.width();
+    window.onscroll = function () {
+        var topScroll = $(this.document).scrollTop();
+        if (topScroll > 50) {
+            query.css({
+                top: '0',
+                zIndex: '9999',
+                position: 'fixed',
+                width: w
+            });
+        } else {
+            query.css({position: 'static'});
+        }
+    }
 });
