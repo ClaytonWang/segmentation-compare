@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html"  %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+{% endblock %}
+
+{% block navbar %}
+    <div class="navbar navbar-fixed-top"></div>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="margin: -10px 20px 0px 20px">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for message in get_flashed_messages() %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-{% if message['status'] == 'success'%}success{% else %}warning{% endif %} alert-dismissable">                                 
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                        ×
+                                    </button>
+                                    <h4>
+                                        Alert!
+                                    </h4> <span>{{ message.text }}</span>
+                                </div>
+                            </div>
+                        </div>                       
+                    {% endfor %}
+
+                    {% block page_content %}{% endblock %}                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+{% endblock %}

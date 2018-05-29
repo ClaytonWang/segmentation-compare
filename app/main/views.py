@@ -34,7 +34,7 @@ def surveylist():
 @main.route('/survey/<int:svy_id>',methods=['GET'])
 def survey(svy_id):
     survey = Survey.query.get(svy_id)
-    svy_content = json.loads(survey.content)
+    svy_content = json.loads(survey.json_content)
     return render_template('survey.html',survey = svy_content[0])
 
 

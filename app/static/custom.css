@@ -15,21 +15,43 @@
     width: auto;
     vertical-align: middle;
 }
-.panel-body{
+
+.panel-body {
     padding: 10px;
 }
-ul{
+
+ul {
     list-style: none;
     margin: 10px 15px;
     padding: 0px;
 }
 
-ul li{
+ul li {
     margin: 10px;
 }
 
-ul li label{
-    font-weight:normal;
+ul li label {
+    font-weight: normal;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+table {
+    width: 100%;
+}
+.table-no-border td,
+.table-no-border th {
+    border: none;
+    padding: 0px;
+    vertical-align: top;
+}
+.center-btn{
+    width: auto;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 input[type="radio"] + label::before {
     content: "\a0";

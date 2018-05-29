@@ -5,18 +5,29 @@ files_queries = db.Table('files_queries',
     db.Column('query_id', db.Integer, db.ForeignKey('queries.id'))
 )
 
+
 class Survey(db.Model):
     __tablename__ = 'surveys'
     id = db.Column(db.Integer,primary_key=True)
-    content = db.Column(db.String)
-    comments = db.Column(db.String)
-    score = db.Column(db.String)
-    status = db.Column(db.Integer)
+    json_content = db.Column(db.String)
+    lastupdate_date = db.Column(db.DateTime)
+    
     # algorisms = db.Column(db.String)
     # datasetName = db.Column(db.String)
     # seconds = db.Column(db.Integer)
     # date = db.Column(db.DateTime)
+    
+
+
+class SurveyScore(db.Model):
+    __tablename__ = 'surveyscores'
+    id = db.Column(db.Integer,primary_key=True)
+    survey_id  = db.Column(db.Integer)
+    score = db.Column(db.String)
+    status = db.Column(db.Integer, default = 0)
+    comments = db.Column(db.String)
     lastupdate_date = db.Column(db.DateTime)
+
 
 class File(db.Model):
     __tablename__ = 'files'
