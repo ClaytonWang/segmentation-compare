@@ -1,0 +1,22 @@
+<query-plan-extensions xmlns="http://www.lexisnexis.com/services/search/query/plan">
+    <query-plan-extension name="{#HLCT}">
+        <query-plan-condition>
+            <cts:and-query xmlns:cts="http://marklogic.com/cts"/>
+        </query-plan-condition>
+        <query-processing-plans method="get">
+            <query-processing-plan method="get">
+                <plan name="recognize-entities" method="get">
+                    <steps method="get">
+                        <step action="ImpliedPhrases" type="implied-phrase" priority="normal" id="au-legal-implied-phrases" method="put">
+                            <param-list>
+                                <param name="set">
+                                    <value>{#PhraseListName}</value>
+                                </param>
+                            </param-list>
+                        </step>
+                    </steps>
+                </plan>
+            </query-processing-plan>
+        </query-processing-plans>
+    </query-plan-extension>
+</query-plan-extensions>

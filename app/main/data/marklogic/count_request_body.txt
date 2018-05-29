@@ -1,0 +1,5 @@
+xquery version "1.0-ml";
+
+declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+
+count(/rdf:RDF[@epoch='{#EpochNumber}'])

@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}Report View of {{ comparison.comparison_name }}}{% endblock %}
+
+{% block page_content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Comparison detail result</h3>
+        </div>
+
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" id="query-form">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Comparison Name :</label>
+                        <span style="text-align: left;" class="col-sm-8 control-label">{{ comparison.comparison_name }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Partial Score :</label>
+                        <span style="text-align: left;" class="col-sm-8 control-label">{{ comparison.partial_score }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Full Score :</label>
+                        <span style="text-align: left;" class="col-sm-8 control-label">{{ comparison.full_score }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Total :</label>
+                        <span style="text-align: left;" class="col-sm-8 control-label">{{ comparison.total }}</span>
+                    </div>
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Query
+                        </th>
+                        <th>
+                            Auto Analysis Result
+                        </th>
+                        <th>
+                            Excepted Result
+                        </th>
+                        <th>
+                            Score
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if data %}
+                        {% for item in data %}
+                            <tr>
+                                <td>
+                                    {{ item.id }}
+                                </td>
+                                <td>
+                                    {{ item.query }}
+                                </td>
+                                <td>
+                                    {{ item.auto_segmentation }}
+                                </td>
+                                <td>
+                                    {{ item.manual_segmentation }}
+                                </td>
+                                <td>
+                                    {{ item.score }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer"></div>
+    </div>
+{% endblock %}

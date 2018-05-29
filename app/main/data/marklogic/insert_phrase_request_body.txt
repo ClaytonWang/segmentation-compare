@@ -1,0 +1,9 @@
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999/xhtml";
+
+let $uri:="/krm/pacific/urn:lexiconentry:{#KeyGuid}.skos"
+let $referTo:="/krm/pacific/urn:lexiconentry:4E60A8D61046412393B99A92C77E60EA.skos"
+let $doc:={#Doc}
+
+return xdmp:document-insert($uri, $doc, xdmp:document-get-permissions($referTo), xdmp:document-get-collections($referTo))
+

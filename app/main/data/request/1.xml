@@ -1,0 +1,47 @@
+<contentstorerequest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" method="POST" type="application/atom+xml" resource="cases-au" p3:contenttype="urn:hlct:33" xmlns:p3="http://application.lexisnexis.com/xmlschemas/contenttype/1/" xmlns="http://services.lexisnexis.com/shared/xmlschema/searchrequest/2/">
+  <outputoptions>
+    <termdefinitions>false</termdefinitions>
+    <start>1</start>
+    <num>10</num>
+    <showfilt>contenttype,pacific-jurisdiction,pacific-court-rollup,pacific-court-commonwealth-rollup,pacific-court-state-rollup,pacific-court-other-rollup,datestr,source,au-topics</showfilt>
+    <teasers>false</teasers>
+    <citationToDocumentOverride>true</citationToDocumentOverride>
+    <signals>false</signals>
+    <citatorsignals>false</citatorsignals>
+    <casebasesignals>true</casebasesignals>
+    <sortfilt>pacific-jurisdiction,pacific-court-rollup,pacific-court-commonwealth-rollup,pacific-court-state-rollup,pacific-court-other-rollup</sortfilt>
+    <orderby>title:d</orderby>
+    <pricing>true</pricing>
+    <workfolders>true</workfolders>
+    <citelistoverview>true</citelistoverview>
+    <sectionheaderview>true</sectionheaderview>
+    <browsetopicview>false</browsetopicview>
+    <staticteaser>true</staticteaser>
+    <hitsteasers>true</hitsteasers>
+    <findqueryentities>true</findqueryentities>
+    <testqp></testqp>
+  </outputoptions>
+  <searchoptions>
+    <advancedentityrecognition>true</advancedentityrecognition>
+    <answerrollup>onecase-pacific</answerrollup>
+    <sdrcountrylist>au,nz,uk</sdrcountrylist>
+  </searchoptions>
+  <internaloptions>relevanceteasers:true,ctsquery:true,pricingdebug:true</internaloptions>
+  <conditions>
+    <and>
+      <query>
+        <q name="Original Search" originalsearch="true">%s</q>
+        <dwim>true</dwim>
+        <qlang>dynamicand</qlang>
+        <parsealgorithm>false</parsealgorithm>
+        <highlight>true</highlight>
+        <suggestcorrections>false</suggestcorrections>
+        <fuzzymatch>false</fuzzymatch>
+        <suggestioncount>1</suggestioncount>
+        <equivs>true</equivs>
+        <synonyms>true</synonyms>
+        <termunitparse>token</termunitparse>
+      </query>
+    </and>
+  </conditions>
+</contentstorerequest>

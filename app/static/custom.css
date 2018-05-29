@@ -1,0 +1,57 @@
+.tools-name {
+    font-size: 18px;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.form-group label {
+    float: left;
+    text-align: left;
+    font-weight: normal;
+}
+
+.form-group select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+.panel-body{
+    padding: 10px;
+}
+ul{
+    list-style: none;
+    margin: 10px 15px;
+    padding: 0px;
+}
+
+ul li{
+    margin: 10px;
+}
+
+ul li label{
+    font-weight:normal;
+}
+input[type="radio"] + label::before {
+    content: "\a0";
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    width: 1em;
+    height: 1em;
+    margin-right: .4em;
+    border-radius: 50%;
+    border: 1px solid #01cd78;
+    text-indent: .15em;
+    line-height: 1; 
+}
+
+input[type="radio"]:checked + label::before {
+    background-color: #01cd78;
+    background-clip: content-box;
+    padding: .2em;
+}
+
+input[type="radio"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}

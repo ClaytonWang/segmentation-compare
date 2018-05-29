@@ -1,0 +1,12 @@
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999/xhtml";
+
+let $uri:= "/ddc4c/8.3/metadata/searchspecs/analytical-materials-au/{#QueryPlanName}.xml"
+
+let $referTo:="/ddc4c/8.3/metadata/searchspecs/cases-au/query-plan.xml"
+
+let $doc:= {#Doc}
+
+
+return xdmp:document-insert($uri, $doc, xdmp:document-get-permissions($referTo), xdmp:document-get-collections($referTo))
+

@@ -1,0 +1,11 @@
+Accept=text/html, */*; q=0.01
+Accept-Encoding=gzip, deflate
+Accept-Language=zh-CN,zh;q=0.9
+Authorization=Digest username="loader", realm="public", nonce="4abc095e8a2f12a86331133d210fb31a", uri="/qconsole/endpoints/evaler.xqy?sid=90537885104649376&qid=12247699177343397099&crid=3467936774&querytype=xquery&action=eval&cache=1526460706073", response="fad82d5aee3ff1000315b8fb5b635479", opaque="98b148a2b287aa01", qop=auth, nc=00000bce, cnonce="67d5c7e029a11e65"
+Connection=keep-alive
+Content-Type=text/plain
+Host=dvml77868.lexis-nexis.com:8000
+Origin=http://dvml77868.lexis-nexis.com:8000
+Referer=http://dvml77868.lexis-nexis.com:8000/qconsole/
+User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36
+X-Requested-With=XMLHttpRequest

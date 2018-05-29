@@ -1,0 +1,58 @@
+<rdf:RDF xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# ..\Schemas\skos\sch_skos.xsd" loaddate="2018-04-04T04:15:41.661299-04:00" epoch="{#EpochNumber}" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:docinfo="http://www.lexis-nexis.com/glp/docinfo" xmlns:krm="urn:x-lexisnexis:content:knowledgeresourcemanagement:masterinterface:1:" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:skosxl="http://www.w3.org/2008/05/skos-xl#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<skos:Concept rdf:about="urn:lexiconentry:{#KeyGuid}">
+<skos:prefLabel xml:lang="en">{#PhraseName}</skos:prefLabel>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:entryType" krm:value="Dictionary">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:geographicScope" krm:value="Pacific">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:inactive" krm:value="False">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:deprecated" krm:value="False">
+</krm:Property>
+</krm:hasProperty>
+<skosxl:altLabel>
+<skosxl:Label rdf:about="urn:label:{#SecondGuid}">
+<skosxl:literalForm xml:lang="en">{#PhraseName}</skosxl:literalForm>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:origin" krm:value="{#PhraseListName}">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:termType" krm:value="Preferred Term">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:type" krm:value="Dictionary Term">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:inactive" krm:value="False">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:deprecated" krm:value="False">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:productInclusion" krm:value="True">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:displayEligible" krm:value="False">
+</krm:Property>
+</krm:hasProperty>
+<krm:hasProperty>
+<krm:Property krm:propertyType="krm:recognitionEligible" krm:value="True">
+</krm:Property>
+</krm:hasProperty>
+</skosxl:Label>
+</skosxl:altLabel>
+</skos:Concept>
+</rdf:RDF>

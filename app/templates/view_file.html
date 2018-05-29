@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}View queries in {{ file.name }}}{% endblock %}
+
+{% block page_content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Query List
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="row" style="margin-bottom: 10px; text-align:right">
+            <div class="col-md-offset-9 col-md-3">
+                {% if file.status == 2 %}<a href="{{ url_for('.download_file', file_id=file.id) }}" >Download</a>&nbsp
+                |&nbsp{% endif %}<a href="{{ url_for('.files') }}">Back to Upload</a>
+            </div>
+        </div>
+         <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Query </th>
+                    <th>Segmentation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for query in queries %}
+                <tr>
+                    <td>{{ query.id }}</td>
+                    <td>{{ query.body }}</td>
+                    <td>{{ query.segmentation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-md-offset-10 col-md-2" style="text-align:right">
+                <a href="{{ url_for('.files') }}">Back to Upload</a>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer"></div>
+</div>
+{% endblock %}
