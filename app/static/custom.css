@@ -22,18 +22,25 @@
 
 ul {
     list-style: none;
-    margin: 10px 15px;
+    margin: 0px 10px;
     padding: 0px;
 }
 
 ul li {
-    margin: 10px;
+    margin: 0px;
 }
 
 ul li label {
     font-weight: normal;
+    
 }
+.relevance{
+    display: inline-block;
 
+}
+.relevance label{
+    cursor: pointer;
+}
 input[type="radio"] {
     margin-right: 5px;
 }
@@ -62,12 +69,13 @@ input[type="radio"] + label::before {
     height: 1em;
     margin-right: .4em;
     border-radius: 50%;
-    border: 1px solid #01cd78;
+    border: 1px solid #ccc;
     text-indent: .15em;
     line-height: 1; 
 }
 
 input[type="radio"]:checked + label::before {
+    border: 1px solid #01cd78;
     background-color: #01cd78;
     background-clip: content-box;
     padding: .2em;

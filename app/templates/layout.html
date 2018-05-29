@@ -1,15 +1,7 @@
-{% extends "bootstrap/base.html"  %}
-
-{% block styles %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
-{% endblock %}
-
-{% block navbar %}
-    <div class="navbar navbar-fixed-top"></div>
-{% endblock %}
-
-{% block content %}
+{% extends "bootstrap/base.html" %} {% block styles %} {{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}"> {% endblock %} {% block navbar %}
+<div class="navbar navbar-fixed-top"></div>
+{% endblock %} {% block content %}
 <div class="container-fluid" style="margin: -10px 20px 0px 20px">
     <div class="row">
         <div class="col-md-12">
@@ -22,38 +14,35 @@
                 <div class="col-md-3">
                     <div class="list-group">
                         <a href="/" class="list-group-item{% if request.path == '/' %} list-group-item-action active{% endif %}">Home</a>
-                        <a href="{{ url_for('main.query') }}" class="list-group-item{% if request.path == '/query' %} list-group-item-action active{% endif %}">Single query</a>
+                        <a href="{{ url_for('main.surveylist') }}" class="list-group-item{% if request.path == '/surveylist' %} list-group-item-action active{% endif %}">Survey List</a>
+                        <a href="{{ url_for('main.surveylist') }}" class="list-group-item{% if request.path == '/query' %} list-group-item-action active{% endif %}">Upload json</a>
+                        <!-- <a href="/" class="list-group-item{% if request.path == '/' %} list-group-item-action active{% endif %}">Home</a>
+                        <a href="{{ url_for('main.surveylist') }}" class="list-group-item{% if request.path == '/query' %} list-group-item-action active{% endif %}">Single query</a>
                         <a href="{{ url_for('main.files') }}" class="list-group-item{% if request.path[:6] == '/files' %} list-group-item-action active{% endif %}">Batch queries</a>
                         <a href="{{ url_for('main.comparison') }}" class="list-group-item{% if request.path == '/comparison' %} list-group-item-action active{% endif %}">Comparison</a>
                         <a href="{{ url_for('main.phraselist') }}" class="list-group-item{% if request.path == '/phraselist' %} list-group-item-action active{% endif %}">Phrase List</a>
-                        <a href="{{ url_for('main.queryplan') }}" class="list-group-item{% if request.path == '/queryplan' %} list-group-item-action active{% endif %}">Query Plan</a>
+                        <a href="{{ url_for('main.queryplan') }}" class="list-group-item{% if request.path == '/queryplan' %} list-group-item-action active{% endif %}">Query Plan</a> -->
                     </div>
                 </div>
                 <div class="col-md-9">
                     {% for message in get_flashed_messages() %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="alert alert-{% if message['status'] == 'success'%}success{% else %}warning{% endif %} alert-dismissable">                                 
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                        ×
-                                    </button>
-                                    <h4>
-                                        Alert!
-                                    </h4> <span>{{ message.text }}</span>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-{% if message['status'] == 'success'%}success{% else %}warning{% endif %} alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4>
+                                    Alert!
+                                </h4>
+                                <span>{{ message.text }}</span>
                             </div>
-                        </div>                       
-                    {% endfor %}
-
-                    {% block page_content %}{% endblock %}                    
+                        </div>
+                    </div>
+                    {% endfor %} {% block page_content %}{% endblock %}
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    {{ moment.include_moment() }}
-{% endblock %}
+{% endblock %} {% block scripts %} {{ super() }} {{ moment.include_moment() }} {% endblock %}

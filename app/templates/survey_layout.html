@@ -17,28 +17,7 @@
                 <img src="{{ url_for('static', filename='logo.png') }}" alt="">
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    {% for message in get_flashed_messages() %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="alert alert-{% if message['status'] == 'success'%}success{% else %}warning{% endif %} alert-dismissable">                                 
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                                        ×
-                                    </button>
-                                    <h4>
-                                        Alert!
-                                    </h4> <span>{{ message.text }}</span>
-                                </div>
-                            </div>
-                        </div>                       
-                    {% endfor %}
-
-                    {% block page_content %}{% endblock %}                    
-                </div>
-            </div>
-        </div>
+        {% block page_content %}{% endblock %}
     </div>
 </div>
 {% endblock %}
@@ -46,4 +25,5 @@
 {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
+    <script src="{{ url_for('static', filename='survey.js') }}"></script>
 {% endblock %}

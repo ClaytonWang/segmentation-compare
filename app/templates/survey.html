@@ -1,225 +1,178 @@
 {% extends "survey_layout.html" %} {% block title %}Survey{% endblock %} {% block page_content %}
+<input type="hidden" name="svy_id" id="svy_id" value="{{svy_id}}" />
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            Info
-        </h3>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <ul>
-                    <li>algorisms :
-                        <label>{% for item in survey.info.algorisms%} {{item}} {%endfor%}</label>
-                    </li>
-                    <li>
-                        datasetName:
-                        <label>{{survey.info.datasetName}}</label>
-                    </li>
-                    <li>
-                        seconds:
-                        <label for="">{{survey.info.seconds}}</label>
-                    </li>
-                    <li>
-                        date:
-                        <label for="">{{survey.info.date}}</label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            Query
-        </h3>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table-no-border">
-                    <tr>
-                        <td width="50%">
-                            <label for="">legislation:</label>
-                            <ul>
-                                <li>
-                                    id:
-                                    <label for="">{{survey.query.legislation.id}}</label>
-                                </li>
-                                <li>
-                                    jurisdiction:
-                                    <label for="">{{survey.query.legislation.jurisdiction}}</label>
-                                </li>
-                                <li>
-                                    subjects
-                                    <label>{% for item in survey.query.legislation.subjects%} {{item}} {%endfor%}</label>
-                                </li>
-                                <li>
-                                    statuscode
-                                    <label for="">{{survey.query.legislation.statuscode}}</label>
-                                </li>
-                                <li>
-                                    tags
-                                    <label>{% for item in survey.query.legislation.tags%} {{item}} {%endfor%}</label>
-                                </li>
-                            </ul>
-                        </td>
-                        <td width="50%">
-                            <label for="">provision:</label>
-                            <ul>
-                                <li>
-                                    id:
-                                    <label for="">{{survey.query.provision.id}}</label>
-                                </li>
-                                <li>
-                                    md5:
-                                    <label for="">{{survey.query.provision.md5}}</label>
-                                </li>
-                                <li>
-                                    title:
-                                    <label for="">{{survey.query.provision.title}}</label>
-                                </li>
-                                <li>
-                                    <label for="">{{survey.query.provision.text}}</label>
-                                </li>
-                            </ul>
-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            Result from Algorithm
-        </h3>
-    </div>
-    <div class="panel-body">
-        {% for item in survey.recommand %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <a href="{{ item.legislation.link }}" target="_blank">{{loop.index}}. {{ item.legislation.title }}</a>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table-no-border">
-                            <tr>
-                                <td width="50%">
-                                    <label for="">legislation:</label>
-                                    <ul>
-                                        <li>
-                                            id:
-                                            <label for="">{{item.legislation.id}}</label>
-                                        </li>
-                                        <li>
-                                            jurisdiction:
-                                            <label for="">{{item.legislation.jurisdiction}}</label>
-                                        </li>
-                                        <li>
-                                            subjects
-                                            <label>{% for item in item.legislation.subjects%} {{item}} {%endfor%}</label>
-                                        </li>
-                                        <li>
-                                            statuscode
-                                            <label for="">{{item.legislation.statuscode}}</label>
-                                        </li>
-                                        <li>
-                                            tags
-                                            <label>{% for item in item.legislation.tags%} {{item}} {%endfor%}</label>
-                                        </li>
-                                        <li>
-                                            statuscode:
-                                            <label>{{item.legislation.statuscode}}</label>
-                                        </li>
-                                        <li>
-                                            <label>{{item.legislation.path}}</label>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td width="50%">
-                                    <label for="">provision:</label>
-                                    <ul>
-                                        <li>
-                                            id:
-                                            <label for="">{{item.provision.id}}</label>
-                                        </li>
-                                        <li>
-                                            md5:
-                                            <label for="">{{item.provision.md5}}</label>
-                                        </li>
-                                        <li>
-                                            title:
-                                            <label for="">{{item.provision.title}}</label>
-                                        </li>
-                                        <li>
-                                            <label for="">{{item.provision.text}}</label>
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="50%">
-
-                                </td>
-                                <td width="50%">
-                                    <label for="">Similarity Measured by Algorithm:</label>
-                                    <label for="">{{item.sim}}</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="50%">
-                                    <label for="">Relevance Score</label>
-                                    <ul>
-                                        <li>
-                                            <input type="radio" name="svy_{{loop.index}}" id="svy_1_{{loop.index}}" value="1">
-                                            <label for="svy_1_{{loop.index}}">
-                                                No Revelant
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" name="svy_{{loop.index}}" id="svy_2_{{loop.index}}" value="2">
-                                            <label for="svy_2_{{loop.index}}">
-                                                Some Revelant
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" name="svy_{{loop.index}}" id="svy_3_{{loop.index}}" value="3">
-                                            <label for="svy_3_{{loop.index}}">
-                                                More Revelant
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <input type="radio" name="svy_{{loop.index}}" id="svy_4_{{loop.index}}" value="4">
-                                            <label for="svy_4_{{loop.index}}">
-                                                Most Revelant
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td width="50%">
-                                    <textarea placeholder="Comment" class="form-control" name="comments_{{loop.index}}" id="comments_{{loop.index}}" rows="7"></textarea>
-                                </td>
-                            </tr>
-                        </table>
-
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6" style="padding-right: 5px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Query
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table-no-border">
+                                <tr>
+                                    <td>
+                                        <label for="">legislation: {{groupItem.query.legislation.id}} ({{groupItem.query.legislation.statuscode}})</label>
+                                        <ul>
+                                            <li>
+                                                subjects:
+                                                <label>{% for item in groupItem.query.legislation.subjects%} {{item}} {%endfor%}</label>
+                                            </li>
+                                            <li>
+                                                tags:
+                                                <label>{% for item in groupItem.query.legislation.tags%} {{item}} {%endfor%}</label>
+                                            </li>
+                                            <li>
+                                                <label>{{groupItem.query.legislation.path}}</label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">provision: {{groupItem.query.provision.id}}</label>
+                                        <ul>
+                                            <li class="hidden">
+                                                md5:
+                                                <label for="">{{groupItem.query.provision.md5}}</label>
+                                            </li>
+                                            <li>
+                                                title:
+                                                <label for="">{{groupItem.query.provision.title}}</label>
+                                            </li>
+                                            <li>
+                                                <label for="">{{groupItem.query.provision.text}}</label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        datasetName:
+                                        <label>{{info.datasetName}}</label>
+                                        date:
+                                        <label for="">{{info.date}}</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
+        <div class="col-md-6" style="padding-left: 5px;">
+            {% for item in groupItem.recommand %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <a href="{{ item.legislation.link }}" target="_blank">{{loop.index}}. {{ item.legislation.title }}</a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table-no-border">
+                                <tr>
+                                    <td>
+                                        <label for="">legislation: {{item.legislation.id}} ({{item.legislation.statuscode}})</label>
+                                        <ul>
+                                            <li>
+                                                subjects:
+                                                <label>{% for item in item.legislation.subjects%} {{item}} {%endfor%}</label>
+                                            </li>
+                                            <li>
+                                                tags:
+                                                <label>{% for item in item.legislation.tags%} {{item}} {%endfor%}</label>
+                                            </li>
+                                            <li>
+                                                <label>{{item.legislation.path}}</label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">provision: {{item.provision.id}}</label>
+                                        <ul>
+                                            <li class="hidden">
+                                                md5:
+                                                <label for="">{{item.provision.md5}}</label>
+                                            </li>
+                                            <li>
+                                                title:
+                                                <label for="">{{item.provision.title}}</label>
+                                            </li>
+                                            <li>
+                                                <label for="">{{item.provision.text}}</label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="">Similarity Measured by Algorithm:</label>
+                                        <label for="">{{item.sim}}</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="">Relevance Score:</label></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul class="relevance">
+                                            <li>
+                                                <input type="radio" name="svy_{{loop.index}}" id="svy_1_{{loop.index}}" value="1">
+                                                <label for="svy_1_{{loop.index}}">
+                                                    No Revelant
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="svy_{{loop.index}}" id="svy_2_{{loop.index}}" value="2">
+                                                <label for="svy_2_{{loop.index}}">
+                                                    Some Revelant
+                                                </label>
+                                            </li>
+                                        </ul>
+                                        <ul class="relevance">
+                                            <li>
+                                                <input type="radio" name="svy_{{loop.index}}" id="svy_3_{{loop.index}}" value="3">
+                                                <label for="svy_3_{{loop.index}}">
+                                                    More Revelant
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" name="svy_{{loop.index}}" id="svy_4_{{loop.index}}" value="4">
+                                                <label for="svy_4_{{loop.index}}">
+                                                    Most Revelant
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <textarea placeholder="Comment" class="form-control" name="comments_{{loop.index}}" id="comments_{{loop.index}}" rows="1"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <button class="btn btn-default center-btn" id="submit_svy" disabled>Submit</button>
+        </div>
     </div>
-    <div class="panel-footer">
-        <button class="btn btn-default center-btn">Submit</button>
-    </div>
+    <hr>
+<br>
+<br>
+<br> 
 </div>
 
 {% endblock %}
