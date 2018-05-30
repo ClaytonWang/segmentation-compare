@@ -38,8 +38,9 @@ ul li label {
     font-weight: normal;
     
 }
-.relevance{
+.relevance li{
     display: inline-block;
+    margin: 10px 30px;
 
 }
 .relevance label{

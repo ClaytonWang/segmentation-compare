@@ -8,6 +8,7 @@ from .common import allowed_file, get_file_extension, wam, segment, get_filename
 import json
 import os
 import re
+import uuid
 from .marklogic import MarkLogicDataHandler, MarkLogicRequest
 
 
@@ -22,27 +23,34 @@ UPLOAD_MARKLOGIC_FILEPATH = 'uploads/marklogics'
 @main.route('/')
 def index():
     array = []
-    surveys = Survey.query.all()
-    for item in surveys:
-        array.append(setattr(item, 'survey', json.loads(item.json_content)))
-    return render_template('index.html', surveyList=surveys)
+    datasets = Survey.query.filter_by(type_code=0).order_by(Survey.id.asc()).all()
+    for item in datasets:
+        setattr(item, 'survey', json.loads(item.json_content))
+        array.append(item)
+    return render_template('index.html', dataSetList=array)
 
 
-@main.route('/surveylist', methods=['GET'])
-def surveylist():
+@main.route('/surveylist/<string:parent_id>', methods=['GET'])
+def surveylist(parent_id):
     array = []
-    surveys = Survey.query.all()
+    surveys = Survey.query.filter_by(type_code=1,parent_pkey=parent_id).order_by(Survey.id.asc()).all()
     for item in surveys:
-        array.append(setattr(item, 'survey', json.loads(item.json_content)))
+        setattr(item, 'survey', json.loads(item.json_content))
+        array.append(item)
 
-    return render_template('surveylist.html', surveyList=surveys)
+    return render_template('surveylist.html', surveyList=array)
 
 
 @main.route('/survey/<int:svy_id>', methods=['GET'])
 def survey(svy_id):
     survey = Survey.query.get(svy_id)
+    dataset = Survey.query.filter_by(type_code=0,pkey=survey.parent_pkey).first()
+    svy_score = SurveyScore.query.filter_by(survey_id=svy_id).order_by(SurveyScore.id.desc()).first()
+
+    info = json.loads(dataset.json_content)
     svy_content = json.loads(survey.json_content)
-    return render_template('survey.html', groupItem=svy_content['group'][0],info=svy_content['info'], svy_id=svy_id)
+    
+    return render_template('survey.html', survey=svy_content,info=info['info'], svy_score = svy_score, svy_id=svy_id,parent_pkey=survey.parent_pkey)
 
 
 @main.route('/survey/completed/<int:svy_id>', methods=['POST'])
@@ -50,9 +58,14 @@ def survey_completed(svy_id):
     try:
         score = request.form.get('score')
         comments = request.form.get('comments')
-        svy_score = SurveyScore(survey_id = svy_id, score=score, status=0, comments=comments, lastupdate_date = datetime.utcnow())
-        db.session.add(svy_score)
+        svy_score = SurveyScore.query.filter_by(survey_id=svy_id).order_by(SurveyScore.id.desc()).first()
+        #svy_score = SurveyScore(survey_id = svy_id, score=score, status=0, comments=comments, lastupdate_date = datetime.utcnow())
+        #db.session.add(svy_score)
+        svy_score.score = score
+        svy_score.comments = comments
+        svy_score.lastupdate_date = datetime.utcnow()
         db.session.commit()
+
         data = {'result': 'Success'}
     except:
         data = {'result': 'Error'}
@@ -62,6 +75,37 @@ def survey_completed(svy_id):
 @main.route('/survey/survey_completed_succ', methods=['GET'])
 def survey_completed_succ():
     return render_template('survey_completed_succ.html')
+
+
+@main.route('/upload_json', methods=['GET','POST'])
+def upload_json():
+    if request.method == 'GET':
+        return render_template('upload_json.html')
+    else:
+        try:
+            pkey = str(uuid.uuid4())
+            json_text = request.form.get('json_text')
+            dataset_svy = Survey(pkey = pkey,parent_pkey='0',json_content = json_text,type_code = 0,lastupdate_date=datetime.utcnow())
+            db.session.add(dataset_svy)
+            db.session.commit()
+            
+            dataset_content = json.loads(json_text)
+            group = dataset_content['group']
+            for item in group :
+                query_svy = Survey(pkey = str(uuid.uuid4()),parent_pkey = pkey,json_content = json.dumps(item),type_code = 1,lastupdate_date = datetime.utcnow())
+                db.session.add(query_svy)
+                db.session.commit()
+
+            data = {'result': 'Success'}
+        except:
+            data = {'result': 'Error'}
+        return json.dumps(data)
+
+
+
+
+
+
 
 
 @main.route('/query', methods=['GET', 'POST'])

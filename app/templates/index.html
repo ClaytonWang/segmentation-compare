@@ -1,40 +1,36 @@
-{% extends "layout.html" %}
-
-{% block title %}Dashboard{% endblock %}
-
-{% block page_content %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Data Set
-            </h3>
-        </div>
-        <div class="panel-body">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <td>No.</td>
-                    <td>Dataset Name</td>
-                    <td>Algorisms</td>
-                    <td>Seconds</td>
-                    <td>Date</td>
-                </tr>
-                {% for item in surveyList %}
-                <tr>
-                    <td>
-                        {{item.id}}
-                    </td>
-                    <td>
-                        <a href="{{ url_for('main.survey',svy_id = item.id) }}">
-                            {{item.survey.info.datasetName}}
-                        </a>
-                    </td>
-                    <td>{% for obj in item.survey.info.algorisms%} {{obj}} {%endfor%}</td>
-                    <td>{{item.survey.info.seconds}}</td>
-                    <td>{{item.survey.info.date}}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="panel-footer"></div>
+{% extends "layout.html" %} {% block title %}Dashboard{% endblock %} {% block page_content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Data Set
+        </h3>
     </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <td>No.</td>
+                <td>Date Set Name</td>
+                <td>Algorisms</td>
+                <td>seconds</td>
+                <td>date</td>
+            </tr>
+            {% for item in dataSetList %}
+            <tr>
+                <td>
+                    {{item.id}}
+                </td>
+                <td>
+                    <a href="{{ url_for('main.surveylist',parent_id = item.pkey) }}">
+                        {{item.survey.info.datasetName}}
+                    </a>
+                </td>
+                <td>{% for item in item.survey.info.algorisms %} {{item}} {% endfor %}</td>
+                <td>{{item.survey.info.seconds}}</td>
+                <td>{{item.survey.info.date}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="panel-footer"></div>
+</div>
 {% endblock %}

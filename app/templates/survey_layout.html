@@ -1,29 +1,26 @@
-{% extends "bootstrap/base.html"  %}
-
-{% block styles %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
-{% endblock %}
-
-{% block navbar %}
-    <div class="navbar navbar-fixed-top"></div>
-{% endblock %}
-
-{% block content %}
+{% extends "bootstrap/base.html" %} {% block styles %} {{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}"> {% endblock %} {% block navbar %}
+<div class="navbar navbar-fixed-top"></div>
+{% endblock %} {% block content %}
 <div class="container-fluid" style="margin: -10px 20px 0px 20px">
     <div class="row">
         <div class="col-md-12">
             <div class="page-header">
                 <img src="{{ url_for('static', filename='logo.png') }}" alt="">
+                <ol class="breadcrumb" style="display: inline; float: right;">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('main.surveylist',parent_id=parent_pkey) }}">Query Library</a>
+                    </li>
+                    <li class="active">Query</li>
+                </ol>
             </div>
         </div>
         {% block page_content %}{% endblock %}
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    {{ moment.include_moment() }}
-    <script src="{{ url_for('static', filename='survey.js') }}"></script>
+{% endblock %} {% block scripts %} {{ super() }} {{ moment.include_moment() }}
+<script src="{{ url_for('static', filename='survey.js') }}"></script>
 {% endblock %}

@@ -13,59 +13,61 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table-no-border">
-                                <tr>
-                                    <td>
-                                        <label for="">legislation: {{groupItem.query.legislation.id}} ({{groupItem.query.legislation.statuscode}})</label>
-                                        <ul>
-                                            <li>
-                                                subjects:
-                                                <label>{% for item in groupItem.query.legislation.subjects%} {{item}} {%endfor%}</label>
-                                            </li>
-                                            <li>
-                                                tags:
-                                                <label>{% for item in groupItem.query.legislation.tags%} {{item}} {%endfor%}</label>
-                                            </li>
-                                            <li>
-                                                <label>{{groupItem.query.legislation.path}}</label>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label for="">provision: {{groupItem.query.provision.id}}</label>
-                                        <ul>
-                                            <li class="hidden">
-                                                md5:
-                                                <label for="">{{groupItem.query.provision.md5}}</label>
-                                            </li>
-                                            <li>
-                                                title:
-                                                <label for="">{{groupItem.query.provision.title}}</label>
-                                            </li>
-                                            <li>
-                                                <label for="">{{groupItem.query.provision.text}}</label>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        datasetName:
-                                        <label>{{info.datasetName}}</label>
-                                        date:
-                                        <label for="">{{info.date}}</label>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="query-container" style="overflow-y: auto;">
+                                <table class="table-no-border">
+                                    <tr>
+                                        <td>
+                                            <label for="">legislation: {{survey.query.legislation.id}} ({{survey.query.legislation.statuscode}})</label>
+                                            <ul>
+                                                <li>
+                                                    subjects:
+                                                    <label>{% for item in survey.query.legislation.subjects%} {{item}} {%endfor%}</label>
+                                                </li>
+                                                <li>
+                                                    tags:
+                                                    <label>{% for item in survey.query.legislation.tags%} {{item}} {%endfor%}</label>
+                                                </li>
+                                                <li>
+                                                    <label>{{survey.query.legislation.path}}</label>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="">provision: {{survey.query.provision.id}}</label>
+                                            <ul>
+                                                <li class="hidden">
+                                                    md5:
+                                                    <label for="">{{survey.query.provision.md5}}</label>
+                                                </li>
+                                                <li>
+                                                    title:
+                                                    <label for="">{{survey.query.provision.title}}</label>
+                                                </li>
+                                                <li>
+                                                    <label for="">{{survey.query.provision.text}}</label>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            datasetName:
+                                            <label>{{info.datasetName}}</label>
+                                            date:
+                                            <label for="">{{info.date}}</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6" style="padding-left: 5px;">
-            {% for item in groupItem.recommand %}
+            {% for item in survey.recommand %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -93,7 +95,7 @@
                                             </li>
                                         </ul>
                                     </td>
-                                    
+
                                 </tr>
                                 <tr>
                                     <td>
@@ -120,7 +122,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label for="">Relevance Score:</label></td>
+                                    <td>
+                                        <label for="">Relevance Score:</label>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -137,8 +141,6 @@
                                                     Some Revelant
                                                 </label>
                                             </li>
-                                        </ul>
-                                        <ul class="relevance">
                                             <li>
                                                 <input type="radio" name="svy_{{loop.index}}" id="svy_3_{{loop.index}}" value="3">
                                                 <label for="svy_3_{{loop.index}}">
@@ -156,7 +158,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <textarea placeholder="Comment" class="form-control" name="comments_{{loop.index}}" id="comments_{{loop.index}}" rows="1"></textarea>
+                                        <textarea placeholder="Comment" class="form-control" name="comments_{{loop.index}}" id="comments_{{loop.index}}" rows="2"></textarea>
                                     </td>
                                 </tr>
                             </table>
@@ -165,14 +167,34 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            {% endfor %} {% if svy_score %}
+            <!-- <nav aria-label="Page navigation" style="float: right;">
+                <ul class="pagination" style="margin: 0px;">
+                    <li>
+                        <a href="#" aria-label="Previous" title="Previous query" >
+                            <span aria-hidden="true">&laquo;Prev</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" aria-label="Next" title="Next query">
+                            <span aria-hidden="true">Next&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav> -->
+            <button class="btn btn-default center-btn" id="submit_svy">Update</button>
+            {% else %}
             <button class="btn btn-default center-btn" id="submit_svy" disabled>Submit</button>
+            {% endif %}
         </div>
     </div>
     <hr>
-<br>
-<br>
-<br> 
+    <br>
+    <br>
+    <br>
 </div>
-
+<script>
+    window.scoreStr = '{{svy_score.score}}';
+    window.comments = '{{svy_score.comments}}';
+</script>
 {% endblock %}

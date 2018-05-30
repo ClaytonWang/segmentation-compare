@@ -1,4 +1,5 @@
 $(function () {
+
     var objScore = {};
     var len = $('textarea').length;
     $('input[type="radio"]').on('click', function () {
@@ -40,15 +41,51 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 if (data['result'] === 'Success') {
-                    document.location = '/survey/survey_completed_succ';
+                    alert("Thank you! Your survey has been submit successful!");
+                    //document.location = '/survey/survey_completed_succ';
+                    document.location.reload(true);
                 } else {
                     alert("Error!");
                 }
             }
         });
     });
-    var query =$('#Query');
+
+
+    $('#submit_json_text').on('click', function () {
+        $.ajax({
+            type: "POST",
+            url: "/upload_json",
+            data: {
+                json_text: $('#json_text').val()
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data['result'] === 'Success') {
+                    alert("Success!");
+                } else {
+                    alert("Error!");
+                    console.log(data);
+                }
+            }
+        });
+    });
+
+
+    var query = $('#Query');
     var w = query.width();
+    var h = query.height();
+    var wh = $(window).height();
+    if (h >= wh) {
+        h = wh - 10;
+        query.css({
+            height: h
+        });
+        $('.query-container').css({
+            height: h - 50
+        });
+    }
+
     window.onscroll = function () {
         var topScroll = $(this.document).scrollTop();
         if (topScroll > 50) {
@@ -56,10 +93,33 @@ $(function () {
                 top: '0',
                 zIndex: '9999',
                 position: 'fixed',
-                width: w
+                width: w,
+                height: h
             });
         } else {
-            query.css({position: 'static'});
+            query.css({
+                position: 'static'
+            });
         }
     }
+
+    var init = function () {
+        var arrCommtent = [];
+        if (scoreStr) {
+            arrScore = scoreStr.split('|||');
+            arrScore.forEach(function (v, i) {
+                var name = "svy_" + (i + 1);
+                objScore[name] = v;
+                $('input[type="radio"][name="' + name + '"][value="' + v + '"]').attr('checked', true);
+            });
+        }
+        if (comments) {
+            arrCommtent = comments.split('|||');
+            $('textarea').each(function (i, o) {
+                $(o).val(decodeURIComponent(arrCommtent[i]).replace(/&#39;/g, "'"));
+            });
+        }
+    };
+
+    init();
 });

@@ -11,24 +11,22 @@
                 <table class="table table-bordered table-hover">
                     <tr>
                         <td>No.</td>
-                        <td>Dataset Name</td>
-                        <td>Algorisms</td>
-                        <td>Seconds</td>
-                        <td>Date</td>
+                        <td>Query</td>
+                        <td>Status Code</td>
+                        <td>Provision</td>
                     </tr>
                     {% for item in surveyList %}
                     <tr>
                         <td>
-                            {{item.id}}
+                            {{loop.index}}
                         </td>
                         <td>
                             <a href="{{ url_for('main.survey',svy_id = item.id) }}">
-                                {{item.survey.info.datasetName}}
+                                {{item.survey.query.legislation.title}}
                             </a>
                         </td>
-                        <td>{% for obj in item.survey.info.algorisms%} {{obj}} {%endfor%}</td>
-                        <td>{{item.survey.info.seconds}}</td>
-                        <td>{{item.survey.info.date}}</td>
+                        <td>{{item.survey.query.legislation.statuscode}}</td>
+                        <td>{{item.survey.query.provision.title}}</td>
                     </tr>
                     {% endfor %}
                 </table>

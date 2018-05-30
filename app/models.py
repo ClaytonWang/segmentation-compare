@@ -9,13 +9,11 @@ files_queries = db.Table('files_queries',
 class Survey(db.Model):
     __tablename__ = 'surveys'
     id = db.Column(db.Integer,primary_key=True)
+    pkey = db.Column(db.String)
+    parent_pkey = db.Column(db.String)
     json_content = db.Column(db.String)
+    type_code =  db.Column(db.Integer) #0 -- data set; 1 -- query
     lastupdate_date = db.Column(db.DateTime)
-    
-    # algorisms = db.Column(db.String)
-    # datasetName = db.Column(db.String)
-    # seconds = db.Column(db.Integer)
-    # date = db.Column(db.DateTime)
     
 
 

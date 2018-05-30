@@ -14,10 +14,10 @@
                 <div class="col-md-3">
                     <div class="list-group">
                         <a href="/" class="list-group-item{% if request.path == '/' %} list-group-item-action active{% endif %}">Home</a>
-                        <a href="{{ url_for('main.surveylist') }}" class="list-group-item{% if request.path == '/surveylist' %} list-group-item-action active{% endif %}">Survey List</a>
-                        <a href="{{ url_for('main.surveylist') }}" class="list-group-item{% if request.path == '/query' %} list-group-item-action active{% endif %}">Upload json</a>
+                        <!-- <a href="{{ url_for('main.surveylist',parent_id=1) }}" class="list-group-item{% if request.path == '/surveylist' %} list-group-item-action active{% endif %}">Query Library</a> -->
+                        <a href="{{ url_for('main.upload_json') }}" class="list-group-item{% if request.path == '/upload_json' %} list-group-item-action active{% endif %}">Upload json</a>
                         <!-- <a href="/" class="list-group-item{% if request.path == '/' %} list-group-item-action active{% endif %}">Home</a>
-                        <a href="{{ url_for('main.surveylist') }}" class="list-group-item{% if request.path == '/query' %} list-group-item-action active{% endif %}">Single query</a>
+                        <a href="{{ url_for('main.surveylist',parent_id=1) }}" class="list-group-item{% if request.path == '/query' %} list-group-item-action active{% endif %}">Single query</a>
                         <a href="{{ url_for('main.files') }}" class="list-group-item{% if request.path[:6] == '/files' %} list-group-item-action active{% endif %}">Batch queries</a>
                         <a href="{{ url_for('main.comparison') }}" class="list-group-item{% if request.path == '/comparison' %} list-group-item-action active{% endif %}">Comparison</a>
                         <a href="{{ url_for('main.phraselist') }}" class="list-group-item{% if request.path == '/phraselist' %} list-group-item-action active{% endif %}">Phrase List</a>
@@ -45,4 +45,6 @@
         </div>
     </div>
 </div>
-{% endblock %} {% block scripts %} {{ super() }} {{ moment.include_moment() }} {% endblock %}
+{% endblock %} {% block scripts %} {{ super() }} {{ moment.include_moment() }}
+<script src="{{ url_for('static', filename='survey.js') }}"></script>
+{% endblock %}
