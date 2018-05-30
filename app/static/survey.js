@@ -63,6 +63,7 @@ $(function () {
             success: function (data) {
                 if (data['result'] === 'Success') {
                     alert("Success!");
+                    $('#json_text').val('')
                 } else {
                     alert("Error!");
                     console.log(data);
