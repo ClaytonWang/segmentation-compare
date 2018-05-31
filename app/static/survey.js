@@ -6,9 +6,9 @@ $(function () {
         var name = $(this).attr('name');
         var val = $(this).val();
         objScore[name] = val;
-        if (Object.getOwnPropertyNames(objScore).length === len) {
-            $('#submit_svy').attr('disabled', false);
-        }
+        // if (Object.getOwnPropertyNames(objScore).length === len) {
+        //     $('#submit_svy').attr('disabled', false);
+        // }
     });
 
 
