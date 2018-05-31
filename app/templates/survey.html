@@ -1,6 +1,7 @@
 {% extends "survey_layout.html" %} {% block title %}Survey{% endblock %} {% block page_content %}
 <input type="hidden" name="svy_id" id="svy_id" value="{{svy_id}}" />
-
+<input type="hidden" name="parent_pkey" id="parent_pkey" value="{{parent_pkey}}" />
+{{js}}
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6" style="padding-right: 5px;">
@@ -21,9 +22,9 @@
                                             <td>
                                                 <label for="">legislation:</label>
                                                 <ul>
-                                                    <li>
+                                                    <!-- <li>
                                                         <label>{% for item in survey.query.legislation.subjects%} {{item}} {%endfor%}</label>
-                                                    </li>
+                                                    </li> -->
                                                     <li>
                                                         <label>{{survey.query.legislation.path}}</label>
                                                     </li>
@@ -65,13 +66,13 @@
                 </div>
                 <nav aria-label="..." style="float: right;">
                     <ul class="pager">
-                        <li class="previous disabled">
-                            <a href="#" title="Previous query">
+                        <li class="previous">
+                            <a href="javascript:void(0);" title="Previous query">
                                 <span aria-hidden="true">&larr;</span>
                             </a>
                         </li>
                         <li class="next">
-                            <a href="#" title="Next query">
+                            <a href="javascript:void(0);" title="Next query">
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
@@ -95,9 +96,9 @@
                                     <td>
                                         <label for="">legislation: </label>
                                         <ul>
-                                            <li>
+                                            <!-- <li>
                                                 <label>{% for item in item.legislation.subjects%} {{item}} {%endfor%}</label>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <label>{{item.legislation.path}}</label>
                                             </li>
@@ -172,8 +173,8 @@
             </div>
             {% endfor %}
 
-            <button class="btn btn-default center-btn" id="submit_svy">Save</button>
-            <button class="btn btn-primary center-btn" id="save_next_svy">Save and Next</button>
+            <button class="btn btn-default center-btn submit_svy">Save</button>
+            <button class="btn btn-primary center-btn submit_svy" nextsvyid="1">Save and Next</button>
         </div>
     </div>
     <hr>
