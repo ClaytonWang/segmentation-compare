@@ -83,7 +83,7 @@ $(function () {
             height: h
         });
         $('.query-container').css({
-            height: h - 50
+            height: h - 100
         });
     }
 

@@ -4,66 +4,79 @@
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6" style="padding-right: 5px;">
-            <div class="panel panel-default" id="Query">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Query
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="query-container" style="overflow-y: auto;">
-                                <table class="table-no-border">
-                                    <tr>
-                                        <td>
-                                            <label for="">legislation: {{survey.query.legislation.id}} ({{survey.query.legislation.statuscode}})</label>
-                                            <ul>
-                                                <li>
-                                                    subjects:
-                                                    <label>{% for item in survey.query.legislation.subjects%} {{item}} {%endfor%}</label>
-                                                </li>
-                                                <li>
-                                                    tags:
-                                                    <label>{% for item in survey.query.legislation.tags%} {{item}} {%endfor%}</label>
-                                                </li>
-                                                <li>
-                                                    <label>{{survey.query.legislation.path}}</label>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label for="">provision: {{survey.query.provision.id}}</label>
-                                            <ul>
-                                                <li class="hidden">
-                                                    md5:
-                                                    <label for="">{{survey.query.provision.md5}}</label>
-                                                </li>
-                                                <li>
-                                                    title:
-                                                    <label for="">{{survey.query.provision.title}}</label>
-                                                </li>
-                                                <li>
-                                                    <label for="">{{survey.query.provision.text}}</label>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            datasetName:
-                                            <label>{{info.datasetName}}</label>
-                                            date:
-                                            <label for="">{{info.date}}</label>
-                                        </td>
-                                    </tr>
-                                </table>
+            <div id="Query">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Query -
+                            <a href="{{survey.query.legislation.link}}">{{survey.query.legislation.title}}</a>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="query-container" style="overflow-y: auto;">
+                                    <table class="table-no-border">
+                                        <tr>
+                                            <td>
+                                                <label for="">legislation:</label>
+                                                <ul>
+                                                    <li>
+                                                        <label>{% for item in survey.query.legislation.subjects%} {{item}} {%endfor%}</label>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{survey.query.legislation.path}}</label>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="">provision:</label>
+                                                <ul>
+                                                    <li>
+                                                        <label for="">{{survey.query.provision.title}}</label>
+                                                    </li>
+                                                    <li>
+                                                        <label for="">{{survey.query.provision.text}}</label>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                datasetName:
+                                                <label>{{info.datasetName}}</label>
+                                                date:
+                                                <label for="">{{info.date}}</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="progress" style="float: left; width:75%">
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0"
+                        aria-valuemax="100" style="width: 45%">
+                        <span>45% Queries Complete</span>
+                    </div>
+                </div>
+                <nav aria-label="..." style="float: right;">
+                    <ul class="pager">
+                        <li class="previous disabled">
+                            <a href="#" title="Previous query">
+                                <span aria-hidden="true">&larr;</span>
+                            </a>
+                        </li>
+                        <li class="next">
+                            <a href="#" title="Next query">
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <div class="col-md-6" style="padding-left: 5px;">
@@ -80,15 +93,10 @@
                             <table class="table-no-border">
                                 <tr>
                                     <td>
-                                        <label for="">legislation: {{item.legislation.id}} ({{item.legislation.statuscode}})</label>
+                                        <label for="">legislation: </label>
                                         <ul>
                                             <li>
-                                                subjects:
                                                 <label>{% for item in item.legislation.subjects%} {{item}} {%endfor%}</label>
-                                            </li>
-                                            <li>
-                                                tags:
-                                                <label>{% for item in item.legislation.tags%} {{item}} {%endfor%}</label>
                                             </li>
                                             <li>
                                                 <label>{{item.legislation.path}}</label>
@@ -99,14 +107,9 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label for="">provision: {{item.provision.id}}</label>
+                                        <label for="">provision: </label>
                                         <ul>
-                                            <li class="hidden">
-                                                md5:
-                                                <label for="">{{item.provision.md5}}</label>
-                                            </li>
                                             <li>
-                                                title:
                                                 <label for="">{{item.provision.title}}</label>
                                             </li>
                                             <li>
@@ -167,25 +170,10 @@
                     </div>
                 </div>
             </div>
-            {% endfor %} {% if svy_score %}
-            <!-- <nav aria-label="Page navigation" style="float: right;">
-                <ul class="pagination" style="margin: 0px;">
-                    <li>
-                        <a href="#" aria-label="Previous" title="Previous query" >
-                            <span aria-hidden="true">&laquo;Prev</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" aria-label="Next" title="Next query">
-                            <span aria-hidden="true">Next&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav> -->
-            <button class="btn btn-default center-btn" id="submit_svy">Update</button>
-            {% else %}
-            <button class="btn btn-default center-btn" id="submit_svy">Submit</button>
-            {% endif %}
+            {% endfor %}
+
+            <button class="btn btn-default center-btn" id="submit_svy">Save</button>
+            <button class="btn btn-primary center-btn" id="save_next_svy">Save and Next</button>
         </div>
     </div>
     <hr>

@@ -1,7 +1,8 @@
-body{
+body {
     min-width: 1300px;
-    font-family: Helvetica,Arial,sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
+
 .tools-name {
     font-size: 18px;
     vertical-align: middle;
@@ -36,16 +37,17 @@ ul li {
 
 ul li label {
     font-weight: normal;
-    
 }
-.relevance li{
-    display: inline-block;
-    margin: 10px 30px;
 
+.relevance li {
+    display: inline-block;
+    margin: 10px 10px;
 }
-.relevance label{
+
+.relevance label {
     cursor: pointer;
 }
+
 input[type="radio"] {
     margin-right: 5px;
 }
@@ -53,19 +55,19 @@ input[type="radio"] {
 table {
     width: 100%;
 }
+
 .table-no-border td,
 .table-no-border th {
     border: none;
     padding: 0px;
     vertical-align: top;
 }
-.center-btn{
-    width: auto;
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
+
+.center-btn {
+    margin-right: 20px;
 }
-input[type="radio"] + label::before {
+
+input[type="radio"]+label::before {
     content: "\a0";
     display: inline-block;
     vertical-align: middle;
@@ -76,10 +78,10 @@ input[type="radio"] + label::before {
     border-radius: 50%;
     border: 1px solid #ccc;
     text-indent: .15em;
-    line-height: 1; 
+    line-height: 1;
 }
 
-input[type="radio"]:checked + label::before {
+input[type="radio"]:checked+label::before {
     border: 1px solid #01cd78;
     background-color: #01cd78;
     background-clip: content-box;
@@ -89,4 +91,21 @@ input[type="radio"]:checked + label::before {
 input[type="radio"] {
     position: absolute;
     clip: rect(0, 0, 0, 0);
+}
+
+.panel-title a {
+    color: #337ab7;
+}
+
+.panel {
+    margin-bottom: 5px;
+}
+
+.pager {
+    margin: 0;
+}
+
+.pager li>a,
+.pager li>span {
+    padding: 0px 25px;
 }
