@@ -37,6 +37,7 @@ $(function () {
         };
         var id = $('#svy_id').val();
         var nextsvyid = $(this).attr('nextsvyid');
+        var prevurl = $(this).attr('previousurl');
         $.ajax({
             type: "POST",
             url: "/survey/completed/" + id,
@@ -44,9 +45,11 @@ $(function () {
             dataType: "json",
             success: function (data) {
                 if (data['result'] === 'Success') {
-                    if (!nextsvyid) {
+                    if (!prevurl && !nextsvyid) {
                         alert("Thank you! Your survey has been submit successful!");
                         document.location.reload(true);
+                    } else if (prevurl) {
+                        document.location = prevurl;
                     } else {
                         document.location = '/survey/' + nextsvyid;
                     }
@@ -78,6 +81,39 @@ $(function () {
         });
     });
 
+    $('.pager .next a').on('click', function () {
+        var url = $(this).attr('url');
+        if (url) {
+            var arrScore = [];
+            for (var prop in objScore) {
+                if (objScore.hasOwnProperty(prop)) {
+                    arrScore.push(objScore[prop]);
+                }
+            }
+            if (arrScore.length && confirm('You have changed the data. Do you want save?')) {
+                $('.btn-primary.submit_svy').click();
+            }else{
+                document.location = url;
+            }
+        }
+    });
+    $('.pager .previous a').on('click', function () {
+        var url = $(this).attr('url');
+        if (url) {
+            var arrScore = [];
+            for (var prop in objScore) {
+                if (objScore.hasOwnProperty(prop)) {
+                    arrScore.push(objScore[prop]);
+                }
+            }
+            if (arrScore.length && confirm('You have changed the data. Do you want save?')) {
+                $('.btn-default.submit_svy').attr('previousurl', url);
+                $('.btn-default.submit_svy').click();
+            }else{
+                document.location = url;
+            }
+        }
+    });
 
     var query = $('#Query');
     var w = query.width();
@@ -146,7 +182,7 @@ $(function () {
 
                 previd = svy_ids[index - 1].id;
                 if (previd) {
-                    $('.pager .previous a').attr('href', '/survey/' + previd);
+                    $('.pager .previous a').attr('url', "/survey/" + previd + "");
                 } else {
                     $('.pager .previous').addClass('disabled');
                 }
@@ -157,15 +193,15 @@ $(function () {
 
                 nextid = svy_ids[index + 1].id;
                 if (nextid) {
-                    $('.pager .next a').attr('href', '/survey/' + nextid);
+                    $('.pager .next a').attr('url', "/survey/" + nextid + "");
                 } else {
                     $('.pager .next').addClass('disabled');
                 }
             } else {
                 nextid = svy_ids[index + 1].id;
                 previd = svy_ids[index - 1].id;
-                $('.pager .previous a').attr('href', '/survey/' + previd);
-                $('.pager .next a').attr('href', '/survey/' + nextid);
+                $('.pager .previous a').attr('url', "/survey/" + previd + "");
+                $('.pager .next a').attr('url', "/survey/" + nextid + "");
             }
 
             if (nextid) {
@@ -183,8 +219,8 @@ $(function () {
             });
 
             var percentQueries = (completedQueries / svy_ids.length) * 100;
-            $('.progress .progress-bar').css('width',percentQueries+'%');
-            $('.progress .progress-bar span').text(percentQueries+'%');
+            $('.progress .progress-bar').css('width', percentQueries + '%');
+            $('.progress .progress-bar span').text(percentQueries + '%');
         }
     };
 
