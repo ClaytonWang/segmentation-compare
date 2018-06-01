@@ -29,7 +29,7 @@ $(function () {
             }
         }
 
-        var status = arrScore.length == $('textarea').length ? '1' : '0';
+        var status = arrScore.length == $('textarea').length ? '2' : '1'; //2 completed ,1 inprogressed
         var data = {
             score: arrScore.join('|||'),
             comments: commtens,
@@ -136,7 +136,7 @@ $(function () {
         var nextid = '';
         if (svy_ids.length) {
             var index = svy_ids.findIndex(function (v, i) {
-                return (v == curid);
+                return (v.id == curid);
             });
 
             if (index === svy_ids.length - 1) {
@@ -144,7 +144,7 @@ $(function () {
                 nextid = '';
                 $('.pager .next').addClass('disabled');
 
-                previd = svy_ids[index - 1];
+                previd = svy_ids[index - 1].id;
                 if (previd) {
                     $('.pager .previous a').attr('href', '/survey/' + previd);
                 } else {
@@ -155,15 +155,15 @@ $(function () {
                 previd = '';
                 $('.pager .previous').addClass('disabled');
 
-                nextid = svy_ids[index + 1];
+                nextid = svy_ids[index + 1].id;
                 if (nextid) {
                     $('.pager .next a').attr('href', '/survey/' + nextid);
                 } else {
                     $('.pager .next').addClass('disabled');
                 }
             } else {
-                nextid = svy_ids[index + 1];
-                previd = svy_ids[index - 1];
+                nextid = svy_ids[index + 1].id;
+                previd = svy_ids[index - 1].id;
                 $('.pager .previous a').attr('href', '/survey/' + previd);
                 $('.pager .next a').attr('href', '/survey/' + nextid);
             }
@@ -173,6 +173,18 @@ $(function () {
             } else {
                 $('.btn-primary.submit_svy').attr('disabled', true);
             }
+
+            //completed
+            var completedQueries = 0;
+            svy_ids.forEach(function (v, i) {
+                if (v.status === 2) {
+                    completedQueries++;
+                }
+            });
+
+            var percentQueries = (completedQueries / svy_ids.length) * 100;
+            $('.progress .progress-bar').css('width',percentQueries+'%');
+            $('.progress .progress-bar span').text(percentQueries+'%');
         }
     };
 

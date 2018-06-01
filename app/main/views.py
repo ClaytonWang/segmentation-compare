@@ -10,7 +10,7 @@ import os
 import re
 import uuid
 from .marklogic import MarkLogicDataHandler, MarkLogicRequest
-
+from sqlalchemy import and_
 
 UPLOAD_FILEPATH = 'uploads'
 DOWNLOAD_FILEPATH = 'downloads'
@@ -34,11 +34,15 @@ def index():
 @main.route('/surveylist/<string:parent_id>', methods=['GET'])
 def surveylist(parent_id):
     array = []
-    surveys = Survey.query.filter_by(
-        type_code=1, parent_pkey=parent_id).order_by(Survey.id.asc()).all()
+    # surveys = Survey.query.outerjoin(SurveyScore,Survey.id == SurveyScore.survey_id).filter(
+    #     Survey.type_code==1, Survey.parent_pkey==parent_id).order_by(Survey.id.asc()).all()
+    surveys = db.session.query(Survey, SurveyScore).outerjoin(SurveyScore, and_(
+        Survey.id == SurveyScore.survey_id)).filter(Survey.parent_pkey == parent_id, Survey.type_code == 1).all()
+    
     for item in surveys:
-        setattr(item, 'survey', json.loads(item.json_content))
-        array.append(item)
+        array.append({'survey': json.loads(item[0].json_content),
+                      'id': item[0].id,
+                      'status':(0 if item[1]==None else item[1].status)})
 
     return render_template('surveylist.html', surveyList=array)
 
@@ -61,10 +65,12 @@ def survey(svy_id):
 def surveyids(parent_id):
     array = []
     try:
-        surveys = Survey.query.filter_by(
-            type_code=1, parent_pkey=parent_id).order_by(Survey.id.asc()).all()
+        # surveys = Survey.query.filter_by(
+        #     type_code=1, parent_pkey=parent_id).order_by(Survey.id.asc()).all()
+        surveys = db.session.query(Survey, SurveyScore).outerjoin(
+            SurveyScore, and_(Survey.id == SurveyScore.survey_id)).filter(Survey.parent_pkey == parent_id, Survey.type_code == 1).all()
         for item in surveys:
-            array.append(item.id)
+            array.append({'id': item[0].id, 'status': (0 if item[1]==None else item[1].status)})
         data = {'result': 'Success', 'ids': array}
     except Exception, e:
         data = {'result': 'Error', 'message': e.message}

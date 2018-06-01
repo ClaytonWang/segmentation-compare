@@ -12,8 +12,8 @@
                     <tr>
                         <td>No.</td>
                         <td>Query</td>
-                        <td>Status Code</td>
                         <td>Provision</td>
+                        <td>Status</td>
                     </tr>
                     {% for item in surveyList %}
                     <tr>
@@ -25,8 +25,8 @@
                                 {{item.survey.query.legislation.title}}
                             </a>
                         </td>
-                        <td>{{item.survey.query.legislation.statuscode}}</td>
                         <td>{{item.survey.query.provision.title}}</td>
+                        <td>{% if item.status == 0 %} Not Start {%endif%} {% if item.status == 1 %} Inprogress {%endif%} {% if item.status == 2 %} Completed {%endif%}</td>
                     </tr>
                     {% endfor %}
                 </table>
