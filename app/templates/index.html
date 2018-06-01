@@ -10,7 +10,7 @@
             <tr>
                 <td>No.</td>
                 <td>Date Set Name</td>
-                <td>Algorisms</td>
+                <td>algorithms</td>
                 <td>seconds</td>
                 <td>date</td>
             </tr>
@@ -26,7 +26,7 @@
                 </td>
                 <td>{% for item in item.survey.info.algorisms %} {{item}} {% endfor %}</td>
                 <td>{{item.survey.info.seconds}}</td>
-                <td>{{item.survey.info.date}}</td>
+                <td>{{ strftime('%yyyy-%MM-%dd',item.survey.info.date)}}</td>
             </tr>
             {% endfor %}
         </table>
