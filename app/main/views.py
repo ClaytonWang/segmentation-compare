@@ -95,7 +95,7 @@ def survey_completed(svy_id):
             svy_score.status = status
             svy_score.lastupdate_date = datetime.utcnow()
         db.session.commit()
-
+        db.session.close()
         data = {'result': 'Success'}
     except Exception, e:
         data = {'result': 'Error', 'message': e.message}
@@ -127,8 +127,27 @@ def upload_json():
                     item), type_code=1, lastupdate_date=datetime.utcnow())
                 db.session.add(query_svy)
                 db.session.commit()
+            db.session.close()
 
             data = {'result': 'Success'}
         except Exception, e:
             data = {'result': 'Error', 'message': e.message}
         return json.dumps(data)
+
+
+@main.route('/dataset/delete/<string:pkey>', methods=['POST'])
+def dataset_delete(pkey):
+    try:
+        surveys = db.session.query(Survey, SurveyScore).outerjoin(
+            SurveyScore, and_(Survey.id == SurveyScore.survey_id)).filter(Survey.parent_pkey == pkey, Survey.type_code == 1).all()
+        for item in surveys:
+            db.session.delete(item[0])
+            if item[1]!=None:
+                db.session.delete(item[1])
+        Survey.query.filter_by(type_code=0, pkey=pkey).delete(synchronize_session=False)
+        db.session.commit()
+        db.session.close()
+        data = {'result': 'Success'}
+    except Exception, e:
+        data = {'result': 'Error', 'message': e.message}
+    return json.dumps(data)

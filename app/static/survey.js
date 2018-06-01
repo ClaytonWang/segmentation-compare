@@ -92,7 +92,7 @@ $(function () {
             }
             if (arrScore.length && confirm('You have changed the data. Do you want save?')) {
                 $('.btn-primary.submit_svy').click();
-            }else{
+            } else {
                 document.location = url;
             }
         }
@@ -109,11 +109,34 @@ $(function () {
             if (arrScore.length && confirm('You have changed the data. Do you want save?')) {
                 $('.btn-default.submit_svy').attr('previousurl', url);
                 $('.btn-default.submit_svy').click();
-            }else{
+            } else {
                 document.location = url;
             }
         }
     });
+
+    $('.btn-delete').on('click',function(){
+        var pkey = $(this).attr('pkey');
+        if(!pkey){
+            return;
+        }
+        if(confirm('Do you want to delete this data set?')){
+            $.ajax({
+                type: "POST",
+                url: "/dataset/delete/" + pkey,
+                dataType: "json",
+                success: function (data) {
+                    if (data['result'] === 'Success') {
+                        document.location.reload(true);
+                    } else {
+                        alert("Error!");
+                        console.log(data);
+                    }
+                }
+            });
+        }
+    });
+
 
     var query = $('#Query');
     var w = query.width();
@@ -146,7 +169,7 @@ $(function () {
         }
     }
 
-    var init = function () {
+    var initSvyPage = function () {
         var arrCommtent = [];
         if (scoreStr) {
             arrScore = scoreStr.split('|||');
@@ -163,8 +186,8 @@ $(function () {
             });
         }
     };
+  
 
-    init();
 
     var setNextPrevPage = function (svy_ids) {
         var curid = $('#svy_id').val();
@@ -239,7 +262,9 @@ $(function () {
             }
         });
     };
-    getSurveyIds();
 
-
+    if (document.location.href.indexOf('survey/') != -1) {
+        initSvyPage();
+        getSurveyIds();
+    }
 });
