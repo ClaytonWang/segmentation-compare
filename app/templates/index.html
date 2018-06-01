@@ -21,7 +21,7 @@
                 </td>
                 <td>
                     <a href="{{ url_for('main.surveylist',parent_id = item.pkey) }}">
-                        {{item.survey.info.datasetName}}
+                        {{item.survey.info.datasetname}}
                     </a>
                 </td>
                 <td>{% for item in item.survey.info.algorisms %} {{item}} {% endfor %}</td>
