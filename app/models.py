@@ -16,7 +16,7 @@ class SurveyScore(db.Model):
     __tablename__ = 'surveyscores'
     id = db.Column(db.Integer,primary_key=True)
     survey_id  = db.Column(db.Integer)
-    score = db.Column(db.String(10))
+    score = db.Column(db.String(1000))
     status = db.Column(db.Integer, default = 0)
     comments = db.Column(db.TEXT)
     lastupdate_date = db.Column(db.DateTime)

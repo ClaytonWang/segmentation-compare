@@ -241,7 +241,7 @@ $(function () {
                 }
             });
 
-            var percentQueries = (completedQueries / svy_ids.length) * 100;
+            var percentQueries = ((completedQueries / svy_ids.length) * 100).toFixed(0);
             $('.progress .progress-bar').css('width', percentQueries + '%');
             $('.progress .progress-bar span').text(percentQueries + '%');
         }
