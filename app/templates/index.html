@@ -1,4 +1,4 @@
-{% extends "layout.html" %} {% block title %}Dashboard{% endblock %} {% block page_content %}
+{% extends "layout.html" %} {% block title %}Survey Tool - Dashboard{% endblock %} {% block page_content %}
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">
@@ -18,7 +18,7 @@
             {% for item in dataSetList %}
             <tr>
                 <td>
-                    {{item.id}}
+                    {{loop.index}}
                 </td>
                 <td>
                     <a href="{{ url_for('main.surveylist',parent_id = item.pkey) }}">

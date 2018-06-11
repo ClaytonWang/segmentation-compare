@@ -1,16 +1,16 @@
 """empty message
 
-Revision ID: 9274ebedd7bf
+Revision ID: 81dcbeaa0ffe
 Revises: 
-Create Date: 2018-06-08 10:03:42.167762
+Create Date: 2018-06-11 06:48:59.555813
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy.dialects import mysql
 
 # revision identifiers, used by Alembic.
-revision = '9274ebedd7bf'
+revision = '81dcbeaa0ffe'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('pkey', sa.String(length=100), nullable=True),
     sa.Column('parent_pkey', sa.String(length=100), nullable=True),
-    sa.Column('json_content', sa.Text(), nullable=True),
+    sa.Column('json_content', mysql.MEDIUMTEXT(), nullable=True),
     sa.Column('type_code', sa.Integer(), nullable=True),
     sa.Column('lastupdate_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
@@ -32,7 +32,7 @@ def upgrade():
     sa.Column('survey_id', sa.Integer(), nullable=True),
     sa.Column('score', sa.String(length=10), nullable=True),
     sa.Column('status', sa.Integer(), nullable=True),
-    sa.Column('comments', sa.Text(), nullable=True),
+    sa.Column('comments', sa.TEXT(), nullable=True),
     sa.Column('lastupdate_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
