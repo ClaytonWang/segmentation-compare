@@ -81,8 +81,13 @@
             </div>
         </div>
         <div class="col-md-6" style="padding-left: 5px;">
+            <ul>
+                {% for jurisdiction in survey.jurisdictions%}
+                <li>{{jurisdiction}}</li>
+                {% endfor %}
+            </ul>
             {% for item in survey.recommend %}
-            <div class="panel panel-default">
+            <div class="panel panel-default" {{item.legislation.jurisdiction}}>
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         <a href="{{ item.legislation.link }}" target="_blank">{{loop.index}}. {{ item.legislation.title }}</a>

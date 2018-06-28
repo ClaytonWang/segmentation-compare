@@ -19,7 +19,6 @@ UPLOAD_MARKLOGIC_FILEPATH = 'uploads/marklogics'
 
 #DICTIONARY ={'[a]': 'a','[can]': 'can','[for]': 'for','[in]': 'in', '[by]':'by'}
 
-
 @main.route('/')
 def index():
     array = []
@@ -57,6 +56,11 @@ def survey(svy_id):
 
     info = json.loads(dataset.json_content)
     svy_content = json.loads(survey.json_content)
+
+    obj={}
+    for item in svy_content['recommend']:
+        obj[item['legislation']['jurisdiction']]=item['legislation']['jurisdiction']
+    svy_content['jurisdictions']=obj.keys()
 
     return render_template('survey.html', survey=svy_content, info=info['info'], svy_score=svy_score, svy_id=svy_id, parent_pkey=survey.parent_pkey)
 
