@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, request, redirect, url_for, make_response, send_file, flash
+from flask import Flask,render_template, request, redirect, url_for, make_response, send_file, flash
 from . import main
 from .forms import NameForm
 from .. import db
@@ -8,16 +8,22 @@ from .common import allowed_file, get_file_extension, wam, segment, get_filename
 import json
 import os
 import re
+import time
 import uuid
+import base64
 from .marklogic import MarkLogicDataHandler, MarkLogicRequest
 from sqlalchemy import and_
+from werkzeug.utils import secure_filename
 
-UPLOAD_FILEPATH = 'uploads'
-DOWNLOAD_FILEPATH = 'downloads'
-UPLOAD_COMPARISON_FILEPATH = 'uploads/comparisons'
-UPLOAD_MARKLOGIC_FILEPATH = 'uploads/marklogics'
+UPLOAD_FOLDER='uploads/json'
+ALLOWED_EXTENSIONS = set(['json'])
 
-#DICTIONARY ={'[a]': 'a','[can]': 'can','[for]': 'for','[in]': 'in', '[by]':'by'}
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1] in ALLOWED_EXTENSIONS
 
 @main.route('/')
 def index():
@@ -135,6 +141,33 @@ def upload_json():
 
             data = {'result': 'Success'}
         except Exception, e:
+            data = {'result': 'Error', 'message': e.message}
+        return json.dumps(data)
+
+
+@main.route('/upload_file',methods=['GET','POST'],strict_slashes=False)
+def upload_file():
+    if request.method == 'GET':
+        return render_template('upload_file.html')
+    else:
+        try:
+            file_dir=os.path.join(basedir,app.config['UPLOAD_FOLDER'])
+            if not os.path.exists(file_dir):
+                os.makedirs(file_dir)
+            f=request.files['file']
+            if f and allowed_file(f.filename):
+                fname= secure_filename(f.filename)
+                print fname
+                ext = fname.rsplit('.',1)[1]
+                unix_time = int(time.time())
+                new_filename=str(unix_time)+'.'+ext
+                f.save(os.path.join(file_dir,new_filename))
+                token = base64.b64encode(new_filename)
+                print token
+                data = {'result': 'Success',"token":token}
+            else:
+                data = {'result': 'Error',"message":"File not allowed"}
+        except Exception,e:
             data = {'result': 'Error', 'message': e.message}
         return json.dumps(data)
 

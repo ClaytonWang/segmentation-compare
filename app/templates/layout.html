@@ -16,6 +16,7 @@
                     <div class="list-group">
                         <a href="/" class="list-group-item{% if request.path == '/' %} list-group-item-action active{% endif %}">Home</a>
                         <a href="{{ url_for('main.upload_json') }}" class="list-group-item{% if request.path == '/upload_json' %} list-group-item-action active{% endif %}">Upload json</a>
+                        <a href="{{ url_for('main.upload_file') }}" class="list-group-item{% if request.path == '/upload_file' %} list-group-item-action active{% endif %}">Upload json file</a>
                     </div>
                 </div>
                 <div class="col-md-9">
