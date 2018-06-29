@@ -83,7 +83,7 @@
         <div class="col-md-6" style="padding-left: 5px;">
             <ul>
                 {% for jurisdiction in survey.jurisdictions%}
-                <li data-id={{jurisdiction}}>{{jurisdiction}}</li>
+                {{json(jurisdiction)}}
                 {% endfor %}
             </ul>
             {% for item in survey.recommend %}

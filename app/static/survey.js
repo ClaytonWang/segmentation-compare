@@ -81,6 +81,17 @@ $(function () {
         });
     });
 
+    $('#submit_json_file').on('click', function () {
+        var filePath = $('#File1').val();
+        if(!filePath){
+            alert('Please select a json file!');
+            return;
+        }
+
+        $('form').submit();
+
+    });
+
     $('.pager .next a').on('click', function () {
         var url = $(this).attr('url');
         if (url) {
@@ -115,12 +126,12 @@ $(function () {
         }
     });
 
-    $('.btn-delete').on('click',function(){
+    $('.btn-delete').on('click', function () {
         var pkey = $(this).attr('pkey');
-        if(!pkey){
+        if (!pkey) {
             return;
         }
-        if(confirm('Do you want to delete this data set?')){
+        if (confirm('Do you want to delete this data set?')) {
             $.ajax({
                 type: "POST",
                 url: "/dataset/delete/" + pkey,
@@ -186,7 +197,7 @@ $(function () {
             });
         }
     };
-  
+
 
 
     var setNextPrevPage = function (svy_ids) {

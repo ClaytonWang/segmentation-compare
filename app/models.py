@@ -6,7 +6,7 @@ class Survey(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     pkey = db.Column(db.String(100))
     parent_pkey = db.Column(db.String(100))
-    json_content = db.Column(mysql.MEDIUMTEXT)
+    json_content = db.Column(mysql.LONGTEXT )
     type_code =  db.Column(db.Integer) #0 -- data set; 1 -- query
     lastupdate_date = db.Column(db.DateTime)
     
