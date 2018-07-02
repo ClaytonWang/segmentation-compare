@@ -45,13 +45,8 @@ $(function () {
     $('.pager .next a').on('click', function () {
         var url = $(this).attr('url');
         if (url) {
-            var arrScore = [];
-            for (var prop in objScore) {
-                if (objScore.hasOwnProperty(prop)) {
-                    arrScore.push(objScore[prop]);
-                }
-            }
-            if (arrScore.length && confirm('You have changed the data. Do you want save?')) {
+            var rst = calcNotCompletedSvy();
+            if (rst.notCompletedNum != len && confirm('You have changed the data. Do you want save?')) {
                 $('.btn-primary.submit_svy').click();
             } else {
                 document.location = url;
@@ -61,13 +56,8 @@ $(function () {
     $('.pager .previous a').on('click', function () {
         var url = $(this).attr('url');
         if (url) {
-            var arrScore = [];
-            for (var prop in objScore) {
-                if (objScore.hasOwnProperty(prop)) {
-                    arrScore.push(objScore[prop]);
-                }
-            }
-            if (arrScore.length && confirm('You have changed the data. Do you want save?')) {
+            var rst = calcNotCompletedSvy();
+            if (rst.notCompletedNum != len && confirm('You have changed the data. Do you want save?')) {
                 $('.btn-default.submit_svy').attr('previousurl', url);
                 $('.btn-default.submit_svy').click();
             } else {
@@ -135,6 +125,23 @@ $(function () {
         });
     };
 
+    function calcNotCompletedSvy() {
+        var arrScore = [];
+        var notCompletedNum = 0;
+        for (var prop in objScore) {
+            if (objScore.hasOwnProperty(prop)) {
+                arrScore.push(objScore[prop]);
+                if (!objScore[prop]) {
+                    notCompletedNum++;
+                }
+            }
+        }
+        return{
+            notCompletedNum:notCompletedNum,
+            arrScore:arrScore
+        }
+    }
+
     var svyPageEventBind = function () {
         $('ul.survey-nav').on('click', 'li', function () {
             var li = $(this);
@@ -158,20 +165,11 @@ $(function () {
                 commtens = commtens.substring(0, commtens.length - 3);
             }
 
-            var arrScore = [];
-            var notCompletedNum = 0;
-            for (var prop in objScore) {
-                if (objScore.hasOwnProperty(prop)) {
-                    arrScore.push(objScore[prop]);
-                    if (!objScore[prop]) {
-                        notCompletedNum++;
-                    }
-                }
-            }
+            var rst = calcNotCompletedSvy();
 
-            var status = notCompletedNum > 0 ? '1' : '2'; //2 completed ,1 inprogressed
+            var status = rst.notCompletedNum > 0 ? '1' : '2'; //2 completed ,1 inprogressed
             var data = {
-                score: arrScore.join('|||'),
+                score: rst.arrScore.join('|||'),
                 comments: commtens,
                 status: status
             };
