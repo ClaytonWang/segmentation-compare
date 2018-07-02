@@ -57,24 +57,25 @@ def surveylist(parent_id):
 @main.route('/survey/<int:svy_id>', methods=['GET'])
 def survey(svy_id):
     survey = Survey.query.get(svy_id)
-    dataset = Survey.query.filter_by(
+    info = Survey.query.filter_by(
         type_code=0, pkey=survey.parent_pkey).first()
     svy_score = SurveyScore.query.filter_by(
         survey_id=svy_id).order_by(SurveyScore.id.desc()).first()
 
-    info = json.loads(dataset.json_content)
+    info = json.loads(info.json_content)
     svy_content = json.loads(survey.json_content)
 
     obj = {}
     for item in svy_content['recommend']:
-        obj[item['legislation']['jurisdiction']] = item['legislation']['jurisdiction']
+        obj[item['legislation']['jurisdiction']
+            ] = item['legislation']['jurisdiction']
 
     keys = obj.keys()
 
     for key in keys:
         arrTemp = []
         for item in svy_content['recommend']:
-            if item['legislation']['jurisdiction'] == key :
+            if item['legislation']['jurisdiction'] == key:
                 arrTemp.append(item)
         obj[key] = arrTemp[:]
 
@@ -132,13 +133,16 @@ def survey_completed_succ():
 
 def save_json(json_text):
     pkey = str(uuid.uuid4())
-    
-    dataset_svy = Survey(pkey=pkey, parent_pkey='0', json_content=json_text,
-                            type_code=0, lastupdate_date=datetime.utcnow())
+    dataset_content = json.loads(json_text)
+    info = {
+        'info': dataset_content['info']
+    }
+
+    dataset_svy = Survey(pkey=pkey, parent_pkey='0', json_content=json.dumps(info),
+                         type_code=0, lastupdate_date=datetime.utcnow())
     db.session.add(dataset_svy)
     db.session.commit()
 
-    dataset_content = json.loads(json_text)
     group = dataset_content['group']
     for item in group:
         query_svy = Survey(pkey=str(uuid.uuid4()), parent_pkey=pkey, json_content=json.dumps(
@@ -146,6 +150,7 @@ def save_json(json_text):
         db.session.add(query_svy)
         db.session.commit()
     db.session.close()
+
 
 @main.route('/upload_json', methods=['GET', 'POST'])
 def upload_json():
@@ -178,18 +183,14 @@ def upload_file():
                 unix_time = int(time.time())
                 new_filename = str(unix_time)+'.'+ext
                 f.save(os.path.join(file_dir, new_filename))
-                token = base64.b64encode(new_filename)
-                #print token
-                data = {'result': 'Success', "token": token}
-                json_content = open(os.path.join(file_dir, new_filename)).read()
-                #print json_content
+                #token = base64.b64encode(new_filename)
+                json_content = open(os.path.join(
+                    file_dir, new_filename)).read()
                 save_json(json_content)
                 return render_template('upload_file_succ.html', message='Thank you! The file "'+fname+'" has been upload successful')
             else:
-                data = {'result': 'Error', "message": "File not allowed"}
                 return render_template('upload_file_succ.html', message='Sorry,File not allowed! Only JSON file allowed to be upload!')
         except Exception, e:
-            data = {'result': 'Error', 'message': e.message}
             return render_template('upload_file_succ.html', message=e.message)
 
 
