@@ -67,8 +67,8 @@ def survey(svy_id):
 
     obj = {}
     for item in svy_content['recommend']:
-        obj[item['legislation']['jurisdiction']
-            ] = item['legislation']['jurisdiction']
+        key = str(item['legislation']['jurisdiction']).upper()
+        obj[key] = key
 
     keys = obj.keys()
 

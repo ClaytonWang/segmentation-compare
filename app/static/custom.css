@@ -109,3 +109,35 @@ input[type="radio"] {
 .pager li>span {
     padding: 0px 25px;
 }
+.go-top{
+    bottom: 141px;
+}
+.go-top li{
+    background: #f0ad4e;
+    color: white;
+}
+
+.go-top,
+.survey-nav {
+    position: fixed;
+    right: 0;
+    margin: 0;
+}
+.go-top li,
+.survey-nav li{
+    width: 35px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    margin: 0px 0px -1px 0px;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 10px 10px 0px;
+}
+.survey-nav li.active,
+.survey-nav li:hover{
+    background:#337ab7;
+    color: white;
+}

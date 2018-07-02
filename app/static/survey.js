@@ -11,56 +11,6 @@ $(function () {
         // }
     });
 
-
-    $('.submit_svy').on('click', function () {
-        var commtens = '';
-        $('textarea').each(function (i, o) {
-            commtens += encodeURIComponent($(o).val()) + '|||'
-        });
-
-        if (commtens.length > 3) {
-            commtens = commtens.substring(0, commtens.length - 3);
-        }
-
-        var arrScore = [];
-        for (var prop in objScore) {
-            if (objScore.hasOwnProperty(prop)) {
-                arrScore.push(objScore[prop]);
-            }
-        }
-
-        var status = arrScore.length == $('textarea').length ? '2' : '1'; //2 completed ,1 inprogressed
-        var data = {
-            score: arrScore.join('|||'),
-            comments: commtens,
-            status: status
-        };
-        var id = $('#svy_id').val();
-        var nextsvyid = $(this).attr('nextsvyid');
-        var prevurl = $(this).attr('previousurl');
-        $.ajax({
-            type: "POST",
-            url: "/survey/completed/" + id,
-            data: data,
-            dataType: "json",
-            success: function (data) {
-                if (data['result'] === 'Success') {
-                    if (!prevurl && !nextsvyid) {
-                        alert("Thank you! Your survey has been submit successful!");
-                        document.location.reload(true);
-                    } else if (prevurl) {
-                        document.location = prevurl;
-                    } else {
-                        document.location = '/survey/' + nextsvyid;
-                    }
-                } else {
-                    alert("Error!");
-                }
-            }
-        });
-    });
-
-
     $('#submit_json_text').on('click', function () {
         $.ajax({
             type: "POST",
@@ -83,7 +33,7 @@ $(function () {
 
     $('#submit_json_file').on('click', function () {
         var filePath = $('#File1').val();
-        if(!filePath){
+        if (!filePath) {
             alert('Please select a json file!');
             return;
         }
@@ -179,8 +129,88 @@ $(function () {
             });
         }
     }
+    var goTop = function () {
+        $("html,body").animate({
+            "scrollTop": 0
+        });
+    };
+
+    var svyPageEventBind = function () {
+        $('ul.survey-nav').on('click', 'li', function () {
+            var li = $(this);
+            li.siblings('li').removeClass('active');
+            li.addClass('active');
+            showTab(li.index());
+        });
+
+
+        $('ul.go-top').on('click', 'li', function () {
+            goTop();
+        });
+
+        $('.submit_svy').on('click', function () {
+            var commtens = '';
+            $('textarea').each(function (i, o) {
+                commtens += encodeURIComponent($(o).val()) + '|||'
+            });
+
+            if (commtens.length > 3) {
+                commtens = commtens.substring(0, commtens.length - 3);
+            }
+
+            var arrScore = [];
+            var notCompletedNum = 0;
+            for (var prop in objScore) {
+                if (objScore.hasOwnProperty(prop)) {
+                    arrScore.push(objScore[prop]);
+                    if (!objScore[prop]) {
+                        notCompletedNum++;
+                    }
+                }
+            }
+
+            var status = notCompletedNum > 0 ? '1' : '2'; //2 completed ,1 inprogressed
+            var data = {
+                score: arrScore.join('|||'),
+                comments: commtens,
+                status: status
+            };
+            var id = $('#svy_id').val();
+            var nextsvyid = $(this).attr('nextsvyid');
+            var prevurl = $(this).attr('previousurl');
+            $.ajax({
+                type: "POST",
+                url: "/survey/completed/" + id,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    if (data['result'] === 'Success') {
+                        if (!prevurl && !nextsvyid) {
+                            alert("Thank you! Your survey has been submit successful!");
+                            document.location.reload(true);
+                        } else if (prevurl) {
+                            document.location = prevurl;
+                        } else {
+                            document.location = '/survey/' + nextsvyid;
+                        }
+                    } else {
+                        alert("Error!");
+                    }
+                }
+            });
+        });
+    };
+
+    var showTab = function (index) {
+        var tab = $('ul.survey-nav li').eq(index).addClass('active').attr('data-id');
+        $('.legislation').hide();
+        $('div[' + tab + ']').show();
+        goTop();
+    };
 
     var initSvyPage = function () {
+        showTab(0);
+        svyPageEventBind();
         var arrCommtent = [];
         if (scoreStr) {
             arrScore = scoreStr.split('|||');
@@ -189,7 +219,13 @@ $(function () {
                 objScore[name] = v;
                 $('input[type="radio"][name="' + name + '"][value="' + v + '"]').attr('checked', true);
             });
+        } else {
+            for (var i = 0; i < len; i++) {
+                var name = "svy_" + (i + 1);
+                objScore[name] = '';
+            }
         }
+
         if (comments) {
             arrCommtent = comments.split('|||');
             $('textarea').each(function (i, o) {
@@ -197,8 +233,6 @@ $(function () {
             });
         }
     };
-
-
 
     var setNextPrevPage = function (svy_ids) {
         var curid = $('#svy_id').val();
