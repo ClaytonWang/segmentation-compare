@@ -203,6 +203,7 @@ $(function () {
         var tab = $('ul.survey-nav li').eq(index).addClass('active').attr('data-id');
         $('.legislation').hide();
         $('div[' + tab + ']').show();
+        $('.loading').hide();
         goTop();
     };
 

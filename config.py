@@ -16,8 +16,10 @@ class DevelopmentConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
     #     'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
-    # SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:@10.123.4.220:3306/survey_tool'
+
+    # SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:Abcd1234@10.181.134.163:3306/survey_tool'
     # SQLALCHEMY_TRACK_MODIFICATIONS = True
+
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqldb://root:Admin@1234@127.0.0.1:3306/survey_tool'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
