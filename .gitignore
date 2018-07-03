@@ -2,6 +2,7 @@ venv/
 *.pyc
 *.sqlite
 app/main/uploads/
+app/main/uploads/json
 app/main/uploads/comparisons/
 app/main/downloads/
 app/main/uploads/marklogics/
