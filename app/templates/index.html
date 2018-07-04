@@ -25,7 +25,7 @@
                         {{item.survey.info.datasetname}}
                     </a>
                 </td>
-                <td>{% for item in item.survey.info.algorisms %} {{item}} {% endfor %}</td>
+                <td>{% set arrColor =['red','blue','brown','aqua','black','coral','crimson','darkgreen']%} {% for item in item.survey.info.algorisms %} <span style="color:{{arrColor[loop.index-1]}}">{{item}}</span> &nbsp;| {% endfor %}</td>
                 <td>{{item.survey.info.seconds}}</td>
                 <td>{{item.survey.info.date}}</td>
                 <td>
